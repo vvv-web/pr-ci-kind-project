@@ -57,7 +57,8 @@ kind delete cluster --name dev
 
 ## How Cursor Agent is used safely
 
-*(Будет дополнено после шага 5)*
-
-Cursor Agent в CI работает в restricted mode: только изменяет файлы, не выполняет commit/push.
-# Test PR
+1. **Restricted mode:** агент только изменяет файлы в working directory.
+2. **Запрещено:** создание веток, commit, push, PR-комментарии — это делает агент.
+3. **Deterministic publish:** отдельный step выполняет `git add/commit/push` после агента.
+4. **Требуется:** секрет `CURSOR_API_KEY` в Settings → Secrets → Actions.
+5. **Запуск:** только при падении pipeline (`if: failure()`).

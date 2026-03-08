@@ -14,7 +14,7 @@
 | 1 | Подготовить репозиторий (структура app/, k8s/, tests/, .github/workflows/, .cursor/) | ✅ | — |
 | 2 | Поднять локальную базу на kind (create → deploy → verify → delete) | ✅ | Шаг 1 |
 | 3 | Добавить mock/unit tests + smoke tests после деплоя | ⬜ | Шаг 2 |
-| 4 | Собрать GitHub Actions workflow для PR | ⬜ | Шаги 2–3 |
+| 4 | Собрать GitHub Actions workflow для PR | ✅ | Шаги 2–3 |
 | 5 | Подключить Cursor Agent в restricted mode | ⬜ | Шаг 4 |
 | 6 | Настроить минимальные permissions и deterministic publish | ⬜ | Шаг 5 |
 | 7 | Добавить troubleshooting-артефакты и критерии качества | ⬜ | Шаг 4 |
@@ -135,7 +135,7 @@ pr-ci-kind-project/
 
 ## Итоговый DoD проекта
 
-- [ ] PR → автоматический запуск workflow
+- [x] PR → автоматический запуск workflow
 - [ ] Ephemeral kind cluster, деплой без ручного вмешательства
 - [ ] Mock/unit до K8s, smoke после деплоя
 - [ ] Артефакты при падении (kind logs и т.п.)
