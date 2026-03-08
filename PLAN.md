@@ -13,7 +13,7 @@
 |---|-----|--------|-------------|
 | 1 | Подготовить репозиторий (структура app/, k8s/, tests/, .github/workflows/, .cursor/) | ✅ | — |
 | 2 | Поднять локальную базу на kind (create → deploy → verify → delete) | ✅ | Шаг 1 |
-| 3 | Добавить mock/unit tests + smoke tests после деплоя | ⬜ | Шаг 2 |
+| 3 | Добавить mock/unit tests + smoke tests после деплоя | ✅ | Шаг 2 |
 | 4 | Собрать GitHub Actions workflow для PR | ✅ | Шаги 2–3 |
 | 5 | Подключить Cursor Agent в restricted mode | ✅ | Шаг 4 |
 | 6 | Настроить минимальные permissions и deterministic publish | ✅ | Шаг 5 |
@@ -38,10 +38,10 @@ pr-ci-kind-project/
 ```
 
 **DoD шага 1:**
-- [ ] `mkdir -p pr-ci-kind-project/{app,k8s,tests,.github/workflows,.cursor}`
-- [ ] Минимальный Dockerfile в app/
-- [ ] Минимальные k8s манифесты в k8s/
-- [ ] README с разделами Local run, PR workflow (заготовки)
+- [x] `mkdir -p pr-ci-kind-project/{app,k8s,tests,.github/workflows,.cursor}`
+- [x] Минимальный Dockerfile в app/
+- [x] Минимальные k8s манифесты в k8s/
+- [x] README с разделами Local run, PR workflow (заготовки)
 
 ---
 
@@ -56,10 +56,10 @@ pr-ci-kind-project/
 - `kind delete cluster --name pr-ci`
 
 **DoD шага 2:**
-- [ ] `kind create cluster` → приложение деплоится
-- [ ] `kubectl` проверяет pod/service доступность
-- [ ] `kind delete cluster` завершает цикл
-- [ ] Цикл воспроизводим между запусками
+- [x] `kind create cluster` → приложение деплоится
+- [x] `kubectl` проверяет pod/service доступность
+- [x] `kind delete cluster` завершает цикл
+- [x] Цикл воспроизводим между запусками
 
 ---
 
@@ -71,9 +71,9 @@ pr-ci-kind-project/
 **Smoke:** после деплоя — deployment ready, service отвечает, хотя бы один сценарий.
 
 **DoD шага 3:**
-- [ ] Mock/unit тесты в tests/ (или в app/)
-- [ ] Smoke-скрипт проверяет readiness и endpoint
-- [ ] Smoke подтверждает не только `kubectl apply`, а реальную работу
+- [x] Mock/unit тесты в tests/ (или в app/)
+- [x] Smoke-скрипт проверяет readiness и endpoint
+- [x] Smoke подтверждает не только `kubectl apply`, а реальную работу
 
 ---
 
@@ -94,9 +94,9 @@ pr-ci-kind-project/
 10. delete cluster
 
 **DoD шага 4:**
-- [ ] Workflow на `pull_request` (opened, synchronize, reopened)
-- [ ] Полный pipeline без ручного вмешательства
-- [ ] `kind load docker-image` без внешнего registry
+- [x] Workflow на `pull_request` (opened, synchronize, reopened)
+- [x] Полный pipeline без ручного вмешательства
+- [x] `kind load docker-image` без внешнего registry
 
 ---
 
@@ -105,9 +105,9 @@ pr-ci-kind-project/
 **Цель:** Агент меняет файлы, не делает commit/push/comment сам.
 
 **DoD шага 5:**
-- [ ] Отдельный step/job с cursor-agent
-- [ ] Агент только анализирует diff и меняет файлы
-- [ ] Не создаёт branches, не коммитит, не пушит
+- [x] Отдельный step/job с cursor-agent
+- [x] Агент только анализирует diff и меняет файлы
+- [x] Не создаёт branches, не коммитит, не пушит
 
 ---
 
@@ -116,9 +116,9 @@ pr-ci-kind-project/
 **Цель:** Least-privilege, воспроизводимый publish.
 
 **DoD шага 6:**
-- [ ] `contents: write`, `pull-requests: write` только при необходимости
-- [ ] Отдельный step: `git add/commit/push` после агента
-- [ ] Auditability — явные git-операции в pipeline
+- [x] `contents: write`, `pull-requests: write` только при необходимости
+- [x] Отдельный step: `git add/commit/push` после агента
+- [x] Auditability — явные git-операции в pipeline
 
 ---
 
@@ -127,21 +127,21 @@ pr-ci-kind-project/
 **Цель:** По любому фейлу — понятная диагностика.
 
 **DoD шага 7:**
-- [ ] `kind export logs` на failure
-- [ ] Артефакты тестов
-- [ ] README: Failure triage, How Cursor Agent is used safely
+- [x] `kind export logs` на failure
+- [x] Артефакты тестов
+- [x] README: Failure triage, How Cursor Agent is used safely
 
 ---
 
 ## Итоговый DoD проекта
 
 - [x] PR → автоматический запуск workflow
-- [ ] Ephemeral kind cluster, деплой без ручного вмешательства
-- [ ] Mock/unit до K8s, smoke после деплоя
-- [ ] Артефакты при падении (kind logs и т.п.)
-- [ ] Cursor Agent в restricted mode, publish отдельным step
-- [ ] README: Local run, PR workflow, Failure triage, Cursor Agent safely
-- [ ] 2–3 PR-сценария для тренировки (сломанный тест, манифест, image tag)
+- [x] Ephemeral kind cluster, деплой без ручного вмешательства
+- [x] Mock/unit до K8s, smoke после деплоя
+- [x] Артефакты при падении (kind logs и т.п.)
+- [x] Cursor Agent в restricted mode, publish отдельным step
+- [x] README: Local run, PR workflow, Failure triage, Cursor Agent safely
+- [x] 2–3 PR-сценария для тренировки (сломанный тест, манифест, image tag)
 
 ---
 

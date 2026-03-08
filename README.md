@@ -46,12 +46,11 @@ kind delete cluster --name dev
 
 ## Failure triage
 
-*(Будет дополнено после шага 7)*
-
 - **Mock tests failed** — проверь `tests/mock_test.sh`, структуру app/ и k8s/.
 - **Build failed** — проверь `app/Dockerfile`, логи сборки.
 - **Deploy failed** — проверь `k8s/` манифесты, `kubectl describe pod`.
 - **Smoke failed** — проверь readiness probe, логи пода.
+- **Артефакты:** при падении скачай `kind-logs` из вкладки Actions → Artifacts.
 
 ---
 
@@ -62,3 +61,19 @@ kind delete cluster --name dev
 3. **Deterministic publish:** отдельный step выполняет `git add/commit/push` после агента.
 4. **Требуется:** секрет `CURSOR_API_KEY` в Settings → Secrets → Actions.
 5. **Запуск:** только при падении pipeline (`if: failure()`).
+
+---
+
+## Пример теста Cursor Agent (PR #2)
+
+**Сценарий:** mock test намеренно сломан — проверяется несуществующий `app/missing.txt`.
+
+| Этап | Результат |
+|------|-----------|
+| Mock tests | ❌ Failed |
+| Cursor Agent | ✅ Удалил проверку `app/missing.txt`, улучшил тесты |
+| Commit & push | ✅ `ci: cursor restricted fixes` — запушен в ветку PR |
+
+**Ссылки:**
+- [PR #2 — broken: mock test (Cursor Agent scenario)](https://github.com/vvv-web/pr-ci-kind-project/pull/2)
+- [Actions — pr-ci-kind](https://github.com/vvv-web/pr-ci-kind-project/actions/workflows/pr-ci.yml)
