@@ -60,3 +60,4 @@ kind delete cluster --name dev
 *(Будет дополнено после шага 5)*
 
 Cursor Agent в CI работает в restricted mode: только изменяет файлы, не выполняет commit/push.
+# Test PR
