@@ -1,0 +1,4 @@
+{
+  "install": "bash -lc 'command -v kubectl >/dev/null || true'",
+  "terminals": []
+}
